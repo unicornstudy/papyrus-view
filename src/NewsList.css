@@ -1,0 +1,83 @@
+.NewsList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .NewsList h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .news-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    width: 60%;  /* 기사 너비 조절 */
+  }
+  
+  .news-item h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 0.5em;
+  }
+  
+  .news-item p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6em;
+    margin-bottom: 0.5em;
+  }
+  
+  .news-item button {
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
+  .summary-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 9999;
+    opacity: 0;  /* 화면에 기본적으로 보이지 않게 설정 */
+    visibility: hidden;  /* 화면에 기본적으로 보이지 않게 설정 */
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .summary-popup.open {
+    opacity: 1; /* open 클래스가 추가되면 보이게 설정 */
+    visibility: visible; /* open 클래스가 추가되면 보이게 설정 */
+  }
+  
+  .summary-popup p {
+    white-space: pre-wrap;
+  }
+  
+  .summary-popup button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  

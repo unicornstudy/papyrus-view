@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import './NewsList.css';  // 뉴스 리스트와 모달에 대한 CSS 파일을 import합니다.
 
 const NewsList = () => {
     const [news, setNews] = useState([]);
     const [cursorId, setCursorId] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [summary, setSummary] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
   
     const lastNewsElementRef = useCallback(node => {
         if (loading) return;
@@ -44,16 +47,21 @@ const NewsList = () => {
         method: 'POST'
       });
       const summary = await response.text();
-      alert(summary);
+      setSummary(summary);
+      setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+      setIsModalOpen(false);
     };
 
     return (
-      <div>
+      <div className="NewsList">
         <h1>News List</h1>
         {news.map((item, index) => (
-          <div key={item.id} ref={index === news.length - 1 ? lastNewsElementRef : null}>
+          <div key={item.id} ref={index === news.length - 1 ? lastNewsElementRef : null} className="news-item">
             <h2>{item.title}</h2>
-            <p>{item.content.length > 15 ? item.content.slice(0, 15) + '...' : item.content}</p>
+            <p>{item.content}</p>
             <p>{item.reporter}</p>
             <p>{item.category}</p>
             <p>{item.press}</p>
@@ -61,8 +69,21 @@ const NewsList = () => {
             <button onClick={() => fetchSummary(item.id)}>요약하기</button>
           </div>
         ))}
+        <SummaryModal summary={summary} isOpen={isModalOpen} closeModal={closeModal} />
       </div>
     );
-  };
+};
 
-  export default NewsList;
+const SummaryModal = ({ summary, isOpen, closeModal }) => {
+  return (
+    <div className={`summary-popup ${isOpen ? "open" : ""}`}>
+      <div className="summary-content">
+        <h2>News Summary</h2>
+        <p>{summary}</p>
+        <button onClick={closeModal}>Close</button>
+      </div>
+    </div>
+  );
+};
+
+export default NewsList;
